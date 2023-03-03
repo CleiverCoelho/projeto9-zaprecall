@@ -32,7 +32,6 @@ export default function Deck(){
             {cards.map((obj, index) => {
                 return (
                     <Card
-                        data-test="flashcard"
                         key={index}
                         question={obj.question}
                         answer={obj.answer}

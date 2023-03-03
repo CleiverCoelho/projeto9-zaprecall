@@ -48,7 +48,7 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
     }
 
     return (
-        <>
+        <CardStyle data-test="flashcard">
             <Pergunta 
                 respondida={respondida}
                 perguntaRevelada={perguntaRevelada}
@@ -70,7 +70,7 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
                     <Zap data-test="zap-btn" disabled={respondida} onClick={() => checkResposta(iconeCerto, "#2FBE34")}>Zap!</Zap>
                 </Botoes>
             </BackFace>
-        </>
+        </CardStyle>
     )
 }
 
@@ -84,6 +84,9 @@ const Botoes = styled.div`
         border-radius: 5px;
         color: #FFFFFF;
     }
+`
+
+const CardStyle = styled.div`
 `
 
 const Erro = styled.button`
