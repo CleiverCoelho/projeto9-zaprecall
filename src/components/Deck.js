@@ -18,6 +18,7 @@ export default function Deck(){
     const [cartasRespondidas, setCartasRespondidas] = React.useState([]);
 
     return (
+        <>
         <DeckStyle>
             <Logo>
                 <img src={logoZap} alt="Logo"/>
@@ -39,8 +40,50 @@ export default function Deck(){
             })}
         
         </DeckStyle>
+        <Footer 
+            cartasRespondidas={cartasRespondidas}
+        >
+            <Respondidas></Respondidas>
+        </Footer>
+        </>
     )
 }
+
+function Footer({cartasRespondidas}){
+    return (
+        <FooterStyle>
+            <p>{cartasRespondidas.length}/8 CONCLUIDOS</p>
+            <Respondidas>
+                {cartasRespondidas.map( (icone, index) => (
+                    <img key={index+186} src={icone} alt="icone"/>
+                ))}
+            </Respondidas>
+        </FooterStyle>
+    )
+}
+
+const FooterStyle = styled.div`
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 375px;
+    height: 95px;
+    position: fixed;
+    bottom: 0px;
+    font-family: Righteous;
+    font-size: 18px;
+    background: #FFFFFF;
+`
+
+const Respondidas = styled.div`
+    display: flex;
+    img{
+        margin-right: 5px;
+    }
+`
 
 const Logo = styled.div`
     img{
@@ -63,4 +106,5 @@ const DeckStyle = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 95px;
 `

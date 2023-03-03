@@ -12,11 +12,8 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
     const [respondida, setRespondida] = React.useState(false);
     const [perguntaRevelada, setPerguntaRevelada] = React.useState(false);
     const [respostaRevelada, setRespostaRevelada] = React.useState(false);
-    const [resposta, setResposta] = React.useState("");
     const [corPergunta, setCorPergunta] = React.useState("black");
     const [iconePergunta, setIconePergunta] = React.useState(setaPlay);
-
-    const indice = index;
 
     function revelarPergunta(){
         setPerguntaRevelada(true);
@@ -33,6 +30,9 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
 
         setIconePergunta(icone);
         setCorPergunta(novaCorPergunta);
+        
+        const novasCartasRespondidas = [...cartasRespondidas, icone];
+        setCartasRespondidas(novasCartasRespondidas);
     }
 
     return (
