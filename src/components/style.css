@@ -1,0 +1,14 @@
+.back-face {
+    transform: rotateY(180deg);
+}
+/* Para virar imagemPadrao para o Gif */
+.card.virada .front-face{
+    transform: rotateY(-180deg);
+}
+.card.virada .back-face{
+    transform: rotateY(0deg);
+}
+
+*{
+    box-sizing: border-box;
+}
