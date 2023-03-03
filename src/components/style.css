@@ -3,12 +3,18 @@
 }
 /* Para virar imagemPadrao para o Gif */
 .card.virada .front-face{
-    transform: rotateY(-180deg);
+    transform: rotateX(-180deg);
 }
 .card.virada .back-face{
-    transform: rotateY(0deg);
+    transform: rotateX(0deg);
 }
 
 *{
+    height: 100%;
+    text-decoration: ;
     box-sizing: border-box;
+}
+
+*:nth-child(1){
+    background-color: aliceblue;
 }

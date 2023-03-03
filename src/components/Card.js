@@ -13,6 +13,8 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
     const [perguntaRevelada, setPerguntaRevelada] = React.useState(false);
     const [respostaRevelada, setRespostaRevelada] = React.useState(false);
     const [resposta, setResposta] = React.useState("");
+    const [corPergunta, setCorPergunta] = React.useState("black");
+    const [iconePergunta, setIconePergunta] = React.useState(setaPlay);
 
     const indice = index;
 
@@ -24,15 +26,25 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
         setRespostaRevelada(true);
     }
 
+    function checkResposta(icone, novaCorPergunta){
+        setRespondida(true);
+        setPerguntaRevelada(false);
+        setRespostaRevelada(false);
+
+        setIconePergunta(icone);
+        setCorPergunta(novaCorPergunta);
+    }
+
     return (
         <>
             <Pergunta 
                 respondida={respondida}
                 perguntaRevelada={perguntaRevelada}
                 respostaRevelada={respostaRevelada}
+                cor={corPergunta}
             >
                 <p>Pergunta {index + 1}</p>
-                <img onClick={revelarPergunta} src={setaPlay} alt="setaPlay"/>
+                <img onClick={revelarPergunta} src={iconePergunta} alt="iconePergunta"/>
             </Pergunta>
             <FrontFace perguntaRevelada={perguntaRevelada}>
                 <p>{question}</p>
@@ -41,9 +53,9 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
             <BackFace respostaRevelada={respostaRevelada}>
                 <p>{answer}</p>
                 <Botoes>
-                    <button>Não lembrei</button>
-                    <button>quase não lembrei</button>
-                    <button>Zap!</button>
+                    <Erro onClick={() => checkResposta(iconeErro, "#FF3030")}>Não lembrei</Erro>
+                    <Quase onClick={() => checkResposta(iconeQuase, "#FF922E")}>Quase não lembrei</Quase>
+                    <Zap onClick={() => checkResposta(iconeCerto, "#2FBE34")}>Zap!</Zap>
                 </Botoes>
             </BackFace>
         </>
@@ -59,8 +71,17 @@ const Botoes = styled.div`
         border: none;
         border-radius: 5px;
         color: #FFFFFF;
-        background: #2FBE34;
     }
+`
+
+const Erro = styled.button`
+    background: #FF3030;
+`
+const Quase = styled.button`
+    background: #FF922E;
+`
+const Zap = styled.button`
+    background: #2FBE34;
 `
 
 const FrontFace = styled.div`
@@ -74,6 +95,8 @@ const FrontFace = styled.div`
     justify-content: flex-start;
     padding: 10px;
     margin-top: 10px;
+
+    transition: all 1s linear;
 
     position: relative;
 
@@ -97,6 +120,7 @@ const Pergunta = styled.div`
     font-size: 16px;
     width: 300px;
     height: 65px;
+    color: ${(props) => props.cor};
 
     margin-top: 10px;
     align-items: center;
@@ -114,6 +138,7 @@ const BackFace = styled.div`
     font-family: 'Righteous', cursive;
     font-size: 16px;
     padding: 10px;
+    transition: all 1s linear;
 
     margin-top: 10px;
     p{
