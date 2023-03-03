@@ -14,8 +14,12 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
     const [respostaRevelada, setRespostaRevelada] = React.useState(false);
     const [corPergunta, setCorPergunta] = React.useState("black");
     const [iconePergunta, setIconePergunta] = React.useState(setaPlay);
+    const [perguntaImgTest, setPerguntaImgTest] = React.useState("play-btn");
 
     function revelarPergunta(){
+        if(respondida){
+            return null;
+        }
         setPerguntaRevelada(true);
     }
     function revelarResposta(){
@@ -33,6 +37,14 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
         
         const novasCartasRespondidas = [...cartasRespondidas, icone];
         setCartasRespondidas(novasCartasRespondidas);
+
+        if(icone === iconeCerto){
+            setPerguntaImgTest("zap-icon")
+        }else if(icone === iconeErro){
+            setPerguntaImgTest("no-icon");
+        }else if(icone === iconeQuase){
+            setPerguntaImgTest("partial-icon");
+        } 
     }
 
     return (
@@ -43,19 +55,19 @@ export default function Card({question, answer, index, cartasRespondidas, setCar
                 respostaRevelada={respostaRevelada}
                 cor={corPergunta}
             >
-                <p>Pergunta {index + 1}</p>
-                <img onClick={revelarPergunta} src={iconePergunta} alt="iconePergunta"/>
+                <p data-test="flashcard-text">Pergunta {index + 1}</p>
+                <img data-test={perguntaImgTest} onClick={revelarPergunta} src={iconePergunta} alt="iconePergunta"/>
             </Pergunta>
             <FrontFace perguntaRevelada={perguntaRevelada}>
-                <p>{question}</p>
-                <img onClick={revelarResposta} src={setaVirar} alt="setaVirar"/>
+                <p data-test="flashcard-text">{question}</p>
+                <img data-test="turn-btn" onClick={revelarResposta} src={setaVirar} alt="setaVirar"/>
             </FrontFace>
             <BackFace respostaRevelada={respostaRevelada}>
-                <p>{answer}</p>
+                <p data-test="flashcard-text">{answer}</p>
                 <Botoes>
-                    <Erro onClick={() => checkResposta(iconeErro, "#FF3030")}>Não lembrei</Erro>
-                    <Quase onClick={() => checkResposta(iconeQuase, "#FF922E")}>Quase não lembrei</Quase>
-                    <Zap onClick={() => checkResposta(iconeCerto, "#2FBE34")}>Zap!</Zap>
+                    <Erro data-test="no-btn" disabled={respondida} onClick={() => checkResposta(iconeErro, "#FF3030")}>Não lembrei</Erro>
+                    <Quase data-test="partial-btn" disabled={respondida} onClick={() => checkResposta(iconeQuase, "#FF922E")}>Quase não lembrei</Quase>
+                    <Zap data-test="zap-btn" disabled={respondida} onClick={() => checkResposta(iconeCerto, "#2FBE34")}>Zap!</Zap>
                 </Botoes>
             </BackFace>
         </>

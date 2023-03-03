@@ -3,6 +3,10 @@ import Card from "./Card"
 import logoZap from "../assets/logo.png"
 import React from "react"
 
+import iconeCerto from "../assets/icone_certo.png"
+import iconeErro from "../assets/icone_erro.png"
+import iconeQuase from "../assets/icone_quase.png"
+
 const cards = [
 	{ question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
 	{ question: "O React é __", answer: "Uma biblioteca JavaScript para construção de interfaces" },
@@ -28,6 +32,7 @@ export default function Deck(){
             {cards.map((obj, index) => {
                 return (
                     <Card
+                        data-test="flashcard"
                         key={index}
                         question={obj.question}
                         answer={obj.answer}
@@ -41,9 +46,9 @@ export default function Deck(){
         
         </DeckStyle>
         <Footer 
+            data-test="footer"
             cartasRespondidas={cartasRespondidas}
         >
-            <Respondidas></Respondidas>
         </Footer>
         </>
     )
@@ -54,9 +59,19 @@ function Footer({cartasRespondidas}){
         <FooterStyle>
             <p>{cartasRespondidas.length}/8 CONCLUIDOS</p>
             <Respondidas>
-                {cartasRespondidas.map( (icone, index) => (
-                    <img key={index+186} src={icone} alt="icone"/>
-                ))}
+                {cartasRespondidas.map( (icone, index) => {
+                    let dataTest = "";
+                    if(icone === iconeCerto){
+                        dataTest = "zap-icon";
+                    }else if(icone === iconeErro){
+                        dataTest = "no-icon";
+                    }else if(icone === iconeQuase){
+                        dataTest = "partial-icon";
+                    }
+                    return (
+                        <img data-test={dataTest} key={index+186} src={icone} alt="icone"/>
+                    )
+                } )}
             </Respondidas>
         </FooterStyle>
     )
