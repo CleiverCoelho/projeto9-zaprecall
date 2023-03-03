@@ -46,7 +46,6 @@ export default function Deck(){
         
         </DeckStyle>
         <Footer 
-            data-test="footer"
             cartasRespondidas={cartasRespondidas}
         >
         </Footer>
@@ -56,7 +55,7 @@ export default function Deck(){
 
 function Footer({cartasRespondidas}){
     return (
-        <FooterStyle>
+        <FooterStyle data-test="footer">
             <p>{cartasRespondidas.length}/8 CONCLUIDOS</p>
             <Respondidas>
                 {cartasRespondidas.map( (icone, index) => {
